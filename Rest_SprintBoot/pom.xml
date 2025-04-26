@@ -41,10 +41,30 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<version>9.2.0</version>
 			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-mysql</artifactId>
 		</dependency>
 
 		<dependency>
@@ -72,6 +92,28 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<configuration>
+					<url>jdbc:mysql://localhost:3306/rest_spring_boot?useSSL=false&amp;useTimeZone=true&amp;serverTimezone=UTC</url>
+					<user>root</user>
+					<password>Nascar20*1</password>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.mysql</groupId>
+						<artifactId>mysql-connector-j</artifactId>
+						<version>9.2.0</version>
+						<exclusions>
+							<exclusion>
+								<groupId>org.slf4j</groupId>
+								<artifactId>slf4j-api</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>			
+				</dependencies>	
 			</plugin>
 		</plugins>
 	</build>

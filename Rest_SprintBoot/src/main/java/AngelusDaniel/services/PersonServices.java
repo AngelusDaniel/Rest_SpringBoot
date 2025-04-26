@@ -37,11 +37,25 @@ public class PersonServices {
     return parseListObject(repository.findAll(), PersonDTO.class);
   }
 
+  public List<PersonDTOV2> findAllV2(){
+    logger.info("Finding all people!");
+
+    return parseListObject(repository.findAll(), PersonDTOV2.class);
+  }
+
   public PersonDTO findById(Long id){
     logger.info("Finding one person!");
 
     var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found!"));
     return parseObject(entity, PersonDTO.class);
+  }
+
+
+  public PersonDTOV2 findByIdV2(Long id){
+    logger.info("Finding one person!");
+
+    var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found!"));
+    return parseObject(entity, PersonDTOV2.class);
   }
 
   public PersonDTO create(PersonDTO person) {

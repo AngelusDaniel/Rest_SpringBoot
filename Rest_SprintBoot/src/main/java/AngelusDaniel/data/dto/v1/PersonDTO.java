@@ -1,15 +1,33 @@
 package AngelusDaniel.data.dto.v1;
 
+import java.io.Serializable;
+import java.util.Date;
 
-public class PersonDTO {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import AngelusDaniel.serializer.GenderSerializer;
+
+@JsonPropertyOrder({ "id", "first_name", "last_name", "address", "gender"})
+public class PersonDTO implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
 
   private Long id;
+
+  @JsonProperty("first_name")
   private String firstName;
+
+  @JsonProperty("last_name")
   private String lastName;
+
   private String address;
+
+  
+  @JsonSerialize(using = GenderSerializer.class)
   private String gender;
 
 

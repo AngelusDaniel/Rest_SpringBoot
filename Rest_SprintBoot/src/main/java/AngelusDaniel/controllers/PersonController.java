@@ -17,7 +17,7 @@ import AngelusDaniel.data.dto.v1.PersonDTO;
 import AngelusDaniel.data.dto.v2.PersonDTOV2;
 import AngelusDaniel.services.PersonServices;
 
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 @RestController
 public class PersonController {
 
@@ -25,13 +25,17 @@ public class PersonController {
   private PersonServices service;
 
   @GetMapping(value = "/{id}", 
-      produces = MediaType.APPLICATION_JSON_VALUE)
+    produces = {MediaType.APPLICATION_JSON_VALUE, 
+    MediaType.APPLICATION_XML_VALUE})
   public PersonDTO findById(@PathVariable("id") Long id) {
     return service.findById(id);
   }
 
   @GetMapping(value = "/",
-      produces = MediaType.APPLICATION_JSON_VALUE)
+    produces = {MediaType.APPLICATION_JSON_VALUE, 
+      MediaType.APPLICATION_XML_VALUE, 
+      MediaType.APPLICATION_YAML_VALUE}
+      )
   public List<PersonDTO> findAll() {
     return service.findAll();
   }
@@ -43,12 +47,6 @@ public class PersonController {
     return service.create(person);
   }
 
-  @PostMapping(value = "/v2",
-    produces = MediaType.APPLICATION_JSON_VALUE,
-    consumes = MediaType.APPLICATION_JSON_VALUE)
-  public PersonDTOV2 create(@RequestBody PersonDTOV2 person) {
-    return service.createV2(person);
-  }
 
   @PutMapping(value= "/",
       produces = MediaType.APPLICATION_JSON_VALUE,
