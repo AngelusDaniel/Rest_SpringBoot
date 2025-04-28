@@ -1,7 +1,8 @@
 package AngelusDaniel.data.dto.v1;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import org.springframework.hateoas.RepresentationModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import AngelusDaniel.serializer.GenderSerializer;
 
 @JsonPropertyOrder({ "id", "first_name", "last_name", "address", "gender"})
-public class PersonDTO implements Serializable {
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -139,5 +140,7 @@ public class PersonDTO implements Serializable {
       return false;
     return true;
   }
+
+
 
 }

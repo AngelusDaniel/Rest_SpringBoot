@@ -28,7 +28,6 @@ public class PersonDTOV2 implements Serializable{
   private Date birthDate;
   private String address;
 
-  @JsonIgnore
   private String gender;
 
   private String sensitiveData;

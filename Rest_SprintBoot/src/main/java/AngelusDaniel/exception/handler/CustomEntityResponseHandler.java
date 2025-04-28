@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import AngelusDaniel.exception.ExceptionResponse;
+import AngelusDaniel.exception.RequiredObjectIsNullException;
 import AngelusDaniel.exception.ResourceNotFoundException;
 import AngelusDaniel.exception.UnsupportedMathOperationException;
 
@@ -28,7 +29,7 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionResponse);
   }
 
-  @ExceptionHandler(UnsupportedMathOperationException.class)
+  @ExceptionHandler(UnsupportedMathOperationException.class )
   public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(Exception ex, WebRequest request){
     ExceptionResponse exceptionResponse = new ExceptionResponse(
       new Date(),
@@ -46,6 +47,16 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
       request.getDescription(false)
     );
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
+  }
+
+  @ExceptionHandler(RequiredObjectIsNullException.class)
+  public final ResponseEntity<ExceptionResponse> handleBadRequestObjectExceptions(Exception ex, WebRequest request){
+    ExceptionResponse exceptionResponse = new ExceptionResponse(
+      new Date(),
+      ex.getMessage(),
+      request.getDescription(false)
+    );
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
   }
 
 }

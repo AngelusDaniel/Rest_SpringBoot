@@ -13,17 +13,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import AngelusDaniel.controllers.docs.PersonControllerDocs;
 import AngelusDaniel.data.dto.v1.PersonDTO;
-import AngelusDaniel.data.dto.v2.PersonDTOV2;
 import AngelusDaniel.services.PersonServices;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@RequestMapping("/api/person/v1")
 @RestController
-public class PersonController {
+@RequestMapping("/api/person/v1")
+@Tag(name = "People", description = "Endpoints for managing persons")
+public class PersonController implements PersonControllerDocs {
 
   @Autowired
   private PersonServices service;
 
+  @Override
   @GetMapping(value = "/{id}", 
     produces = {MediaType.APPLICATION_JSON_VALUE, 
     MediaType.APPLICATION_XML_VALUE})
@@ -31,6 +39,7 @@ public class PersonController {
     return service.findById(id);
   }
 
+  @Override
   @GetMapping(value = "/",
     produces = {MediaType.APPLICATION_JSON_VALUE, 
       MediaType.APPLICATION_XML_VALUE, 
@@ -40,6 +49,7 @@ public class PersonController {
     return service.findAll();
   }
 
+  @Override
   @PostMapping(value = "/",
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -48,6 +58,7 @@ public class PersonController {
   }
 
 
+  @Override
   @PutMapping(value= "/",
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -55,6 +66,7 @@ public class PersonController {
     return service.update(person);
   }
 
+  @Override
   @DeleteMapping(value= "/{id}")
   public void delete(@PathVariable("id") Long id) {
     service.delete(id);
